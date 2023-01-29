@@ -76,4 +76,8 @@ def create_item(item: Item):
         item_dict.update({'Price with tax': price_with_tax})
     return item_dict
 
-# @app.put('/items')
+@app.put('/items')
+def create_item_with_put(item_id: int, item: Item, q: str | None = None):
+    result = {'item_id': item_id, **item.dict()}
+    if q:
+        result
