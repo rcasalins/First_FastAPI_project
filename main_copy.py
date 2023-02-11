@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Path
 from enum import Enum
 from pydantic import BaseModel
 
@@ -94,4 +94,20 @@ alias = 'item-query') ):
     if q:
         results.update({"q": q})
 
+    return results
+
+
+# @app.get('/item_validation/{item_id}')
+# async def read_items_validation(item_id: int = Path(..., title = 'The ID of the item to get'), q: str | None = Query(None, alias = 'item_query')):
+#     results = {'item_id': item_id}
+#     if q:
+#         results.update({'q': q})
+#     return results
+
+
+@app.get('/item_validation/{item_id}')
+async def read_items_validation(q: str, item_id: int = Path(..., title = 'The ID of the item to get', ge = 10, lt = 100)):
+    results = {'item_id': item_id}
+    if q:
+        results.update({'q': q})
     return results
